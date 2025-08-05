@@ -259,17 +259,17 @@ function choosejb(hen) {
 }
 
 function showpayloads() {
-  if (document.getElementById('payloadsbtn').textContent == 'Payloads') {
+  if (document.getElementById('payloadsbtn').textContent == 'البايلودز') {
   document.getElementById('jailbreak-page').style.display = 'none';
   document.getElementById('PS4FW').style.display = 'none';
   document.getElementById('payloads-page').style.display = 'block';
-  document.getElementById('payloadsbtn').textContent = 'Jailbreak';
+  document.getElementById('payloadsbtn').textContent = 'جلبريك';
   localStorage.setItem('visibleDiv', 'payloads-page');
   }else{
   document.getElementById('jailbreak-page').style.display = 'block';
   document.getElementById('PS4FW').style.display = 'flex';
   document.getElementById('payloads-page').style.display = 'none';
-  document.getElementById('payloadsbtn').textContent = 'Payloads';
+  document.getElementById('payloadsbtn').textContent = 'البايلودز';
   localStorage.setItem('visibleDiv', 'jailbreak-page');
 
   };
