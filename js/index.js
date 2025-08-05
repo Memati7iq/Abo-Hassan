@@ -146,7 +146,7 @@ function CheckFW() {
       });
     }
 
-    document.title = "PSFree | " + fwVersion;
+    document.title = "Abo Hassan | " + fwVersion;
   } else {
     let platform = 'Unknown platform';
 
