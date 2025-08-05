@@ -355,12 +355,12 @@ function loadajbsettings(){
     document.getElementById('jailbreak-page').style.display = 'block';
     document.getElementById('PS4FW').style.display = 'flex';
     document.getElementById('payloads-page').style.display = 'none';
-    document.getElementById('payloadsbtn').textContent = 'Payloads';
+    document.getElementById('payloadsbtn').textContent = 'البايلودز';
   } else {
     document.getElementById('jailbreak-page').style.display = 'none';
     document.getElementById('PS4FW').style.display = 'none';
     document.getElementById('payloads-page').style.display = 'block';
-    document.getElementById('payloadsbtn').textContent = 'Jailbreak';
+    document.getElementById('payloadsbtn').textContent = 'جلبريك';
     localStorage.setItem('visibleDiv', 'payloads-page');
   }
 }
