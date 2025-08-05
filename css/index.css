@@ -3,7 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: url("images/background.jpg") no-repeat center center fixed;
+    background: url("images/background.jpg?v=2") no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -140,7 +140,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: url("images/popup.jpg") no-repeat center center;
+    background: url("images/popup.jpg?v=2") no-repeat center center;
     background-size: cover;
     border: 1px solid #ccc;
     padding: 20px;
