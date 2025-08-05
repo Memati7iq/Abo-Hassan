@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html manifest="./PSFree.manifest">
   <head>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
     <script>
         function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));document.title="Installing offline cache: " + Percent + "%";}
         function DisplayCacheProgress(){setTimeout(function(){;document.title="Cache Success !";},1000);setTimeout(function(){window.location.href = document.referrer;},3000);}window.applicationCache.addEventListener("progress",DLProgress,false);window.applicationCache.oncached=function(e){DisplayCacheProgress();};window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
@@ -381,10 +382,10 @@
         <h3>اختر المفضلة لديك</h3>
         <div class="radio-group">
           <label>
-            <input type="radio" name="hen" value="GoldHEN" onchange="savejbflavor(); choosejb('GoldHEN')"> GoldHEN
+            <input type="radio" name="hen" value="GoldHEN" onchange="savejbflavor(); choosejb('GoldHEN')"> جولدن هين
           </label>
           <label>
-            <input type="radio" name="hen" value="HEN" onchange="savejbflavor(); choosejb('HEN')"> HEN
+            <input type="radio" name="hen" value="HEN" onchange="savejbflavor(); choosejb('HEN')"> هين
           </label>
         </div>
         <label id="autojbchkb">
@@ -393,11 +394,11 @@
         </label>
         <label id="debugconsolechkb">
           <input type="checkbox" id="ckbdc" checked />
-          <p id="agtext">Enable Debug Console</p>
+          <p id="agtext">تمكين وحدة تحكم التصحيح</p>
         </label>
       </div>
 
-      <button onclick="closesettings()" class="close-btn" id="close-settings">Close</button>
+      <button onclick="closesettings()" class="close-btn" id="close-settings">اغلاق</button>
       <button data-func="load_PSFreeFix" class="install-psfrf" id="install-psfrf" style="display: none;">Install PSFree-Fix</button>
       <!--<button data-func="load_AppCache" class="install-psfrl" id="install-psfrl">Install PSFree-Lite</button>-->
     </div>
