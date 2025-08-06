@@ -465,33 +465,3 @@ function onCheckboxChange(checked) {
     console.log('Checkbox is unchecked!');
   }
 }
-<script>
-  function hideAllPayloads() {
-    document.getElementById("payloads-tools").style.display = "none";
-    document.getElementById("payloads-game").style.display = "none";
-    document.getElementById("payloads-linux").style.display = "none";
-    document.getElementById("payloads-goldhen").style.display = "none";
-  }
-
-  function showgoldhenpayloads() {
-    hideAllPayloads();
-    document.getElementById("payloads-goldhen").style.display = "block";
-  }
-
-  function loadGoldHEN(filename) {
-    const url = `payloads/GoldHEN/${filename}`;
-    fetch(url)
-      .then(response => {
-        if (!response.ok) throw new Error("فشل تحميل البايلود");
-        return response.blob();
-      })
-      .then(blob => {
-        alert(`تم تحميل البايلود: ${filename}`);
-        // هنا يمكنك إضافة كود إضافي لإرسال البايلود إلى PS4
-      })
-      .catch(err => {
-        alert("خطأ أثناء تحميل بايلود GoldHEN");
-        console.error(err);
-      });
-  }
-</script>
