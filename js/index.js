@@ -117,7 +117,7 @@ function CheckFW() {
     if (
       fwVersion === '9.00' || fwVersion === '9.03' || fwVersion === '9.60'
     ) {
-      document.getElementById('PS4FW').textContent = `بلي ستيشن النظام ${fwVersion} | متوافق:`;
+      document.getElementById('PS4FW').textContent = `بلي ستيشن النظام ${fwVersion} | متوافق`;
       document.getElementById('PS4FW').style.color = 'green';
       ps4fw = fwVersion.replace('.', '');
       document.getElementById('install-psfrf').style.display = 'flex';
