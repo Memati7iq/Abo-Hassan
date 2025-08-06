@@ -117,7 +117,7 @@ function CheckFW() {
     if (
       fwVersion === '9.00' || fwVersion === '9.03' || fwVersion === '9.60'
     ) {
-      document.getElementById('PS4FW').textContent = `متوافق: ${fwVersion} | بلي ستيشن النظام`;
+      document.getElementById('PS4FW').textContent = `بلي ستيشن النظام ${fwVersion} | متوافق:`;
       document.getElementById('PS4FW').style.color = 'green';
       ps4fw = fwVersion.replace('.', '');
       document.getElementById('install-psfrf').style.display = 'flex';
@@ -457,7 +457,10 @@ function loadsettings() {
   loadjbflavor();
   checksettings();
 }
-
+function showgoldhenpayloads() {
+  var element = document.getElementById("payloads-goldhen");
+  element.style.display = (element.style.display === "none") ? "block" : "none";
+}
 function onCheckboxChange(checked) {
   if (checked) {
     console.log('Checkbox is checked!');
