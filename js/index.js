@@ -457,6 +457,7 @@ function loadsettings() {
   loadjbflavor();
   checksettings();
 }
+
 function onCheckboxChange(checked) {
   if (checked) {
     console.log('Checkbox is checked!');
