@@ -117,7 +117,7 @@ function CheckFW() {
     if (
       fwVersion === '9.00' || fwVersion === '9.03' || fwVersion === '9.60'
     ) {
-      document.getElementById('PS4FW').textContent = `PS4 FW: ${fwVersion} | Compatible`;
+      document.getElementById('PS4FW').textContent = `متوافق: ${fwVersion} | بلي ستيشن النظام`;
       document.getElementById('PS4FW').style.color = 'green';
       ps4fw = fwVersion.replace('.', '');
       document.getElementById('install-psfrf').style.display = 'flex';
@@ -465,3 +465,33 @@ function onCheckboxChange(checked) {
     console.log('Checkbox is unchecked!');
   }
 }
+<script>
+  function hideAllPayloads() {
+    document.getElementById("payloads-tools").style.display = "none";
+    document.getElementById("payloads-game").style.display = "none";
+    document.getElementById("payloads-linux").style.display = "none";
+    document.getElementById("payloads-goldhen").style.display = "none";
+  }
+
+  function showgoldhenpayloads() {
+    hideAllPayloads();
+    document.getElementById("payloads-goldhen").style.display = "block";
+  }
+
+  function loadGoldHEN(filename) {
+    const url = `payloads/GoldHEN/${filename}`;
+    fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error("فشل تحميل البايلود");
+        return response.blob();
+      })
+      .then(blob => {
+        alert(`تم تحميل البايلود: ${filename}`);
+        // هنا يمكنك إضافة كود إضافي لإرسال البايلود إلى PS4
+      })
+      .catch(err => {
+        alert("خطأ أثناء تحميل بايلود GoldHEN");
+        console.error(err);
+      });
+  }
+</script>
