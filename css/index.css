@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
 html, body {
     height: 100%;
     margin: 0;
@@ -11,7 +13,7 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     position: relative;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Cairo', 'Segoe UI', Arial, sans-serif;
 }
 
 .header {
@@ -35,7 +37,7 @@ body {
     border-radius: 18px;
     padding: 10px 48px;
     pointer-events: auto;
-    border: 3px solid #FFB84D; 
+    border: 2px solid #FFB84D; 
 
 }
 
@@ -178,7 +180,7 @@ body {
 .close-btn {
     margin-top: 15px;
     padding: 8px 15px;
-    background-color: #333;
+    background-color: #1F1C37;
     color: white;
     border: none;
     border-radius: 4px;
@@ -191,9 +193,9 @@ body {
     right: 10px;
     margin-top: 0;
     padding: 8px 15px;
-    background-color: #333;
+    background-color: #1F1C37;
     color: white;
-    border: none;
+    border: 1px solid #FFB84D; /* ✅ البوردر الذهبي */
     border-radius: 4px;
     cursor: pointer;
     font-family: Arial, sans-serif;
@@ -203,7 +205,7 @@ body {
 }
 
 .close-btn:hover {
-    background-color: #555;
+    background-color: #1F1C37;
     transform: scale(1.05);
 }
 
@@ -226,7 +228,7 @@ body {
     display: flex;
     margin: 0 auto;
     left: 5%;
-
+    border: 1px solid #FFB84D; /* ✅ البوردر الذهبي */
 }
 
 #button-container {
@@ -346,7 +348,6 @@ body {
 
 #settings-popup label {
     margin: 0 15px;
-    color: white; /* ← النص أبيض */
     font-family: Arial, sans-serif;
     font-size: 16px;
     cursor: pointer;
@@ -519,7 +520,4 @@ body {
     .header-title { font-size: 1.3em; padding: 5px 14px;}
     .ps-btn { width: 90px; height: 90px;}
     .ps-btn svg { width: 44px; height: 44px;}
-}
-#agtext {
-    font-family: 'Cairo', sans-serif;
 }
