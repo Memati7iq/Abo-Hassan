@@ -509,3 +509,13 @@ body {
 #agtext {
     font-family: 'Cairo', sans-serif;
 }
+#payloads-tools,
+#payloads-game,
+#payloads-linux {
+    background-color: #1F1C37; /* لون غامق وواضح */
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    border: 1px solid #FFB84D;
+}
