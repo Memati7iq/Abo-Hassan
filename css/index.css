@@ -281,8 +281,9 @@ body {
     justify-content: space-around;
     padding: 10px 0;
     border-radius: 15px;
-    box-shadow: 0 2px 5px rgb(34, 34, 34);
+    box-shadow: 0 2px 5px rgb(34, 34, 34), 0 0 10px #FFB84D;
     z-index: 1000;
+    border: 1px solid #FFB84D;
 }
 
 .floating-menu-payloads button {
@@ -367,7 +368,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #1F1C37;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   text-align: center;
@@ -379,7 +380,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow-y: auto;
-    background-color: #555;
+    background-color: #1F1C37;
     color: white;
     width: 90%;
     border-radius: 15px;
@@ -392,7 +393,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #1F1C37;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   padding: 20px;
