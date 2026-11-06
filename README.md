@@ -12,7 +12,7 @@ consoles directly through the website, providing users with a simple and easy-to
 - 🌐 Arabic user interface.
 - 🔄 Continuous updates to keep up with the latest developments and firmware versions.
 - ⚡ Simple, fast, and user-friendly interface.
-- 💻 No need to leave the website to perform the jailbreak process.
+- 💻 Automatic GoldHEN Activation..
 
 ## 🎯 Purpose
 
