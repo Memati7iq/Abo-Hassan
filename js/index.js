@@ -332,9 +332,11 @@ function loadajbsettings(){
       document.getElementById('jailbreak').style.display = 'none';
       consoleDev.append(`Auto jailbreaking... Please wait for a few seconds.\n`);
       consoleDev.scrollTop = consoleDev.scrollHeight;
+      // Schedule at the next event-loop turn: the former 3000 ms wait
+      // delayed automatic jailbreak without improving payload loading.
       setTimeout(() => {
         jailbreak();
-      }, 3000);
+      }, 0);
     }
   }
 

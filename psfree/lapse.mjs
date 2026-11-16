@@ -1922,44 +1922,63 @@ function runBinLoader() {
   log("awaiting payload...");
 }
 
+// Start fetching the binary immediately once the kernel exploit succeeds.
+// Resolve only after the payload has been executed; a network failure or
+// execution error must never be counted as a successful jailbreak.
 function runPayload(path) {
-  log(`loading ${path}`);
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", path, true); 
-  xhr.responseType = "arraybuffer";
-  xhr.onload = function () {
-    if (xhr.status === 200) {
+  return new Promise((resolve, reject) => {
+    if (!path) {
+      reject(new Error("No payload selected"));
+      return;
+    }
+
+    log(`loading ${path}`);
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", path, true);
+    xhr.responseType = "arraybuffer";
+    xhr.onload = function () {
+      if (xhr.status !== 200 || !xhr.response || !xhr.response.byteLength) {
+        reject(new Error(`error retrieving payload, HTTP ${xhr.status}`));
+        return;
+      }
+
+      let payloadBuffer = null;
+      let allocatedLength = 0;
       try {
         const response = new Uint8Array(xhr.response);
         const paddingLength = (4 - (response.byteLength % 4)) % 4;
         const paddedBuffer = new Uint8Array(response.byteLength + paddingLength);
-        paddedBuffer.set(response, 0);
-        if (paddingLength) {
-          paddedBuffer.set(new Uint8Array(paddingLength), response.byteLength);
-        }
+        paddedBuffer.set(response);
         const shellcode = new Uint32Array(paddedBuffer.buffer);
-        const payloadBuffer = chain.sysp("mmap", 0, paddedBuffer.length, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PREFAULT_READ, -1, 0);
+
+        allocatedLength = paddedBuffer.byteLength;
+        payloadBuffer = chain.sysp("mmap", 0, allocatedLength,
+          PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PREFAULT_READ, -1, 0);
         log(`payload buffer allocated at ${payloadBuffer}`);
         const payloadBufferShadow = array_from_address(payloadBuffer, shellcode.length);
         payloadBufferShadow.set(shellcode);
         log(`loaded ${response.byteLength} bytes for payload (+ ${paddingLength} bytes padding)`);
+
         try {
           chain.call_void(payloadBuffer);
-        } catch (e) {
-          log(`error executing payload: ${e.message}`);
+        } finally {
+          // Always free the allocation, including if execution fails.
+          sysi("munmap", payloadBuffer, allocatedLength);
         }
-        sysi("munmap", payloadBuffer, paddedBuffer.length);
+        log("Payload execution returned successfully.");
+        resolve();
       } catch (e) {
-        log(`error in runPayload: ${e.message}`);
+        reject(e);
       }
-    } else {
-      log(`error retrieving payload, ${xhr.status}`);
-    }
-  };
-  xhr.onerror = function () {
-    log("network error");
-  };
-  xhr.send();
+    };
+    xhr.onerror = function () {
+      reject(new Error("Payload network error"));
+    };
+    xhr.onabort = function () {
+      reject(new Error("Payload download cancelled"));
+    };
+    xhr.send();
+  });
 }
 
 kexploit().then((success) => {
@@ -1972,39 +1991,38 @@ kexploit().then((success) => {
   }
 });
 
-function LoadPayload(){
-  log("The payload is going to be loaded now. Please wait...")
-  document.getElementById('loader').style.display = 'flex';
-  if (localStorage.getItem('jbsuccess') && (window.payload_path == "./payloads/GoldHEN/GoldHEN.bin" || window.payload_path == "./payloads/HEN/HEN.bin")) {
-    log("Already jailbroken !");
-    if(document.getElementById('ckbaj').checked){
-      const Confirmation = confirm("It seems you are already jailbroken.\nDo you want to run the payload again?");
-      if (Confirmation) {
-        setTimeout(() => {
-          runPayload(window.payload_path)
-          localStorage.setItem('jbsuccess', 1);
-        }, 2000);
-      } else {
-        log("Payload run cancelled.");
-      }
-    } else {
-      setTimeout(() => {
-        runPayload(window.payload_path)
-        localStorage.setItem('jbsuccess', 1);
-      }, 2000);
+// No arbitrary two-second wait: initiate the payload as soon as the exploit
+// has finished. Keep the page open until the payload really returns, instead
+// of reloading at a fixed five-second deadline.
+async function LoadPayload() {
+  const path = window.payload_path;
+  const loader = document.getElementById('loader');
+  const jailbreakButton = document.getElementById('jailbreak');
+  const isHen = path === "./payloads/GoldHEN/GoldHEN.bin" ||
+                path === "./payloads/HEN/HEN.bin";
+
+  if (localStorage.getItem('jbsuccess') && isHen &&
+      document.getElementById('ckbaj').checked) {
+    const confirmed = confirm("It seems you are already jailbroken.\nDo you want to run the payload again?");
+    if (!confirmed) {
+      log("Payload run cancelled.");
+      if (jailbreakButton) jailbreakButton.style.display = 'flex';
+      return;
     }
-  } else {
-    setTimeout(() => {
-      runPayload(window.payload_path)
-      localStorage.setItem('jbsuccess', 1);
-    }, 2000);
   }
-  setTimeout(() => {
-    sessionStorage.setItem('jbsuccess', 1);
-    if (document.getElementById('loader').style.display == 'flex'){
-      document.getElementById('jailbreak').style.display = 'flex';
-      document.getElementById('loader').style.display = 'none';
-    }
-    window.location.reload();
-  }, 5000);
+
+  if (loader) loader.style.display = 'flex';
+  log("Loading payload immediately after kernel exploit...");
+  try {
+    await runPayload(path);
+    // Set success indicators ONLY after payload execution has returned.
+    localStorage.setItem('jbsuccess', '1');
+    sessionStorage.setItem('jbsuccess', '1');
+    log("Payload completed successfully.");
+  } catch (error) {
+    log(`Payload failed: ${error.message || error}`);
+  } finally {
+    if (loader) loader.style.display = 'none';
+    if (jailbreakButton) jailbreakButton.style.display = 'flex';
+  }
 }
